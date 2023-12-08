@@ -5,12 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "nodemon app.js"
   },
   "author": "JCX2927917567",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
+    "express-swagger-generator": "^1.1.17",
     "mysql2": "^3.6.5"
   }
 }
