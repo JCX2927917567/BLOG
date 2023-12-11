@@ -15,7 +15,7 @@ moduleAlias.addAliases({
     // '@routes': path.join(__dirname, 'routes'),
     // '@db': path.join(__dirname, 'db'),
     // '@controllers': path.join(__dirname, 'controllers'),
-    // '@config': path.join(__dirname, 'config'),
+    '@config': path.join(__dirname, 'config'),
     // '@utils': path.join(__dirname, 'utils'),
     // '@scheduler': path.join(__dirname, 'scheduler'),
 });
