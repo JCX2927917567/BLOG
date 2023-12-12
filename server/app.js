@@ -10,11 +10,16 @@ const isDev = process.env.NODE_ENV === 'development'
 // 访问不同的 .env文件，在其他引用环境变量文件前引入，确保其他文件使用环境变量配置时，已经加载
 require('dotenv').config({ path: isDev ? './.env.development' : './.env,production' });
 
+// 异步报错无需try-catch捕获
+require('express-async-errors');
+
 // 数据库连接
-require('./db/base');
+require('@db/base');
+
+app.use(express.json());
 
 // 使用swagger API文档，必须在解决跨域设置数据格式之前
-const options = require('./config/swagger.config'); // 配置信息
+const options = require('@/config/swagger.config'); // 配置信息
 const expressSwagger = require('express-swagger-generator')(app);
 expressSwagger(options);
 

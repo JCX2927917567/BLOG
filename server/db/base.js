@@ -1,5 +1,5 @@
 const mysql = require('mysql2/promise');
-const config = require('../config/db.config');
+const config = require('@/config/db.config');
 const chalk = require('chalk');
 
 const pool = mysql.createPool({
