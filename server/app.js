@@ -16,7 +16,9 @@ require('express-async-errors');
 // 数据库连接
 require('@db/base');
 
+// 中间件处理post请求
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 // 使用swagger API文档，必须在解决跨域设置数据格式之前
 const options = require('@/config/swagger.config'); // 配置信息
