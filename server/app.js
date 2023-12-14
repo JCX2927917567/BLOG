@@ -4,6 +4,10 @@ const express = require('express');
 const path = require('path');
 const chalk = require('chalk');
 const logger = require('morgan');
+const cors = require('cors');
+const mount = require('mount-routes');
+const scheduler = require('@/scheduler');
+const sessionAuth = require('@/middlewares/sessionMiddleware');
 const app = express();
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -16,9 +20,29 @@ require('express-async-errors');
 // 数据库连接
 require('@db/base');
 
-// 中间件处理post请求
+// Session全局中间件配置
+app.use(sessionAuth);
+
+// 中间件处理post请求参数解析
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+// 处理跨域
+app.use(cors());
+
+// 设置跨域和设置允许的请求头信息
+app.all('*', function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With, token");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With, Authorization");
+    res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+    res.header('Access-Control-Allow-Headers', 'Content-Type,Content-Length, Authorization, Accept,X-Requested-With');
+    res.header("Content-Type", "application/json;charset=utf-8");
+    if (req.method === 'OPTIONS') {
+        res.sendStatus(200);
+    }
+    else next();
+})
 
 // 使用swagger API文档，必须在解决跨域设置数据格式之前
 const options = require('@/config/swagger.config'); // 配置信息
@@ -32,6 +56,23 @@ if (isDev) {
 } else {
     console.log(chalk.bold.yellow('当前是生产环境'));
 }
+
+// 监听SIGINT信号，当应用程序被强制关闭时停止所有定时任务
+process.on('SIGINT', () => {
+    scheduler.stop();
+    process.exit();
+});
+
+// 带路径的用法并且可以打印出路由表 true代表展示路由表在打印台
+mount(app, path.join(__dirname, 'routes'), isDev);
+
+// 添加全局错误处理中间件
+// app.use(errorHandler);
+
+// 404错误处理中间件
+app.all('*', function (req, res, next) {
+    return apiResponse.notFoundResponse(res, '404 --- 接口不存在');
+})
 
 // 监听服务器端口
 app.listen(process.env.PORT, () => {
