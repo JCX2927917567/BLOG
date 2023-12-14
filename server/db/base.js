@@ -12,7 +12,6 @@ const pool = mysql.createPool({
   waitForConnections: true,
   connectionLimit: 5, // 连接池允许的最大连接数
   queueLimit: 0, // 请求队列的最大长度，0 表示无限制
-  acquireTimeout: 10000, // 获取连接的最大等待时间（毫秒）
   idleTimeout: 60000, // 连接空闲的超时时间（毫秒）
 });
 

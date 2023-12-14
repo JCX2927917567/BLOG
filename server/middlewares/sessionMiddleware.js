@@ -11,6 +11,7 @@
      name: "session",	// cookie名称，默认为connect.sid
      resave: false,	// 强制将会话保存回会话容器
      rolling: false,	// 强制在每个response上设置会话标识符cookie
+     saveUninitialized: false, // 设置为false以减少存储占用
      cookie: {
          maxAge: 5 * 60 * 1000 // 5分钟后失效
      }
