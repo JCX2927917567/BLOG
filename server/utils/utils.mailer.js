@@ -14,7 +14,7 @@ let transporter = nodemailer.createTransport(
         secureConnection: true, // 使用 SSL
         auth: {
             user: '2927917567@qq.com', // 发送方邮箱的账号
-            pass: 'lfnsuiexjygvdfff', // 你的邮箱授权密码
+            pass: 'wdkddgbvypthdfhd', // 你的邮箱授权密码
         }
     }
 );

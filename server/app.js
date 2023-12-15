@@ -77,7 +77,7 @@ app.all('*', function (req, res, next) {
 // 监听服务器端口
 app.listen(process.env.PORT, () => {
     /* 开启定时任务 */
-    // scheduler.start();
+    scheduler.start();
 
     console.log(
         chalk.hex('#8e44ad').bold(`
