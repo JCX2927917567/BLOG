@@ -8,7 +8,8 @@ const cors = require('cors');
 const mount = require('mount-routes');
 const scheduler = require('@/scheduler');
 const sessionAuth = require('@/middlewares/sessionMiddleware');
-const app = express();
+const errorHandler = require('@utils/utils.errorHandler');
+const apiResponse = require('@utils/utils.apiResponse');
 const isDev = process.env.NODE_ENV === 'development'
 
 // 访问不同的 .env文件，在其他引用环境变量文件前引入，确保其他文件使用环境变量配置时，已经加载
@@ -19,6 +20,8 @@ require('express-async-errors');
 
 // 数据库连接
 require('@db/base');
+
+const app = express();
 
 // Session全局中间件配置
 app.use(sessionAuth);
@@ -67,7 +70,7 @@ process.on('SIGINT', () => {
 mount(app, path.join(__dirname, 'routes'), isDev);
 
 // 添加全局错误处理中间件
-// app.use(errorHandler);
+app.use(errorHandler);
 
 // 404错误处理中间件
 app.all('*', function (req, res, next) {
@@ -77,7 +80,7 @@ app.all('*', function (req, res, next) {
 // 监听服务器端口
 app.listen(process.env.PORT, () => {
     /* 开启定时任务 */
-    // scheduler.start();
+    scheduler.start();
 
     console.log(
         chalk.hex('#8e44ad').bold(`

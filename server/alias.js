@@ -11,12 +11,12 @@ const path = require('path');
 
 moduleAlias.addAliases({
     '@': path.join(__dirname),
-    // '@middlewares': path.join(__dirname, 'middlewares'),
-    // '@models': path.join(__dirname, 'models'),
-    // '@routes': path.join(__dirname, 'routes'),
+    '@middlewares': path.join(__dirname, 'middlewares'),
+    '@models': path.join(__dirname, 'models'),
+    '@routes': path.join(__dirname, 'routes'),
     '@db': path.join(__dirname, 'db'),
-    // '@controllers': path.join(__dirname, 'controllers'),
+    '@controllers': path.join(__dirname, 'controllers'),
     '@config': path.join(__dirname, 'config'),
-    // '@utils': path.join(__dirname, 'utils'),
-    // '@scheduler': path.join(__dirname, 'scheduler'),
+    '@utils': path.join(__dirname, 'utils'),
+    '@scheduler': path.join(__dirname, 'scheduler'),
 });
