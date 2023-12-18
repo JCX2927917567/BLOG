@@ -54,7 +54,7 @@ const apiResponse = require('@utils/utils.apiResponse')
  */
 
 exports.blog_articleslist = [
-    // tokenAuthentication,
+    tokenAuthentication,
     // actionRecords({module: '博文管理/查询'}),
     async (req, res, next) => {
         try {
