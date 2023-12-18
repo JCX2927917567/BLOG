@@ -12,7 +12,9 @@
     "name": "个人博客API",
     "version": "1.0.0",
     "description": "关于后台系统的接口文档描述",
-    "title": "博客API文档"
+    "title": "博客API文档",
+    "url": "http://localhost:3089",
+    "sampleUrl": "http://localhost:3089"
   },
   "author": "JCX2927917567",
   "license": "ISC",

@@ -1,7 +1,6 @@
-const {Blog_articlesModel} = require('@models/v1')
+const { Blog_articlesModel } = require('@models/v1')
 const tokenAuthentication = require('@middlewares/tokenAuthentication')
 const apiResponse = require('@utils/utils.apiResponse')
-const {checkApiPermission} = require("@middlewares/authMiddleware");
 
 /**
  * 权限：
@@ -12,25 +11,50 @@ const {checkApiPermission} = require("@middlewares/authMiddleware");
  */
 
 /**
- * 获取博文管理列表
- * @param {Object} req - 请求对象，包含查询参数
- *  -query: {
- *   params: {}, 查询参数 (object)
- *       pagination: {
- *           current: 1, 当前页码 (number)
- *           pageSize: 10,页面大小 (number)
- *       },
- *       sort: {
- *           columnKey: "createdAt",
- *           order: "ascend"
+ * @apiParam {Object} params 查询参数
+ * @apiParam {Object} params.pagination 分页信息
+ * @apiParam {Number} params.pagination.current 当前页码
+ * @apiParam {Number} params.pagination.pageSize 页面大小
+ * @apiParam {Object} params.sort 排序信息
+ * @apiParam {String} params.sort.columnKey 列名
+ * @apiParam {String} params.sort.order 排序方式 (ascend/descend)
+ *
+ * @apiSuccess {Object} data 返回的数据
+ * @apiSuccess {Array} data.blogList 博文列表
+ * @apiSuccess {Object} data.pagination 分页信息
+ * @apiSuccess {Number} data.pagination.current 当前页码
+ * @apiSuccess {Number} data.pagination.pageSize 页面大小
+ * @apiSuccess {Number} data.pagination.total 总记录数
+ *
+ * @apiSuccessExample Success-Response:
+ *    HTTP/1.1 200 OK
+ *    {
+ *      "data": {
+ *        "blogList": [...], // 博文列表
+ *        "pagination": {
+ *          "current": 1, // 当前页码
+ *          "pageSize": 10, // 页面大小
+ *          "total": 100 // 总记录数
  *        }
- *   },
- * @param {Object} res - 响应对象
- * @returns {Object} - 包含博文管理列表及分页信息的响应对象
+ *      }
+ *    }
+ *
+ * @apiError {Object} error 错误信息
+ * @apiError {String} error.message 错误描述
+ * @apiError {Number} error.code 错误代码
+ *
+ * @apiErrorExample Error-Response:
+ *    HTTP/1.1 500 Internal Server Error
+ *    {
+ *      "error": {
+ *        "message": "Internal Server Error",
+ *        "code": 500
+ *      }
+ *    }
  */
+
 exports.blog_articleslist = [
-    tokenAuthentication,
-    checkApiPermission('blog:blog_articles:list'),
+    // tokenAuthentication,
     // actionRecords({module: '博文管理/查询'}),
     async (req, res, next) => {
         try {
