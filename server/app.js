@@ -1,5 +1,6 @@
 require("./alias"); // 引入路径别名配置文件
 
+const { exec } = require('child_process');
 const express = require('express');
 const path = require('path');
 const chalk = require('chalk');
@@ -21,10 +22,26 @@ require('express-async-errors');
 // 数据库连接
 require('@db/base');
 
+// 生成文档,与热更新结合，须在nodemon.json中忽略文档输出文件
+exec('npx apidoc -i routes -o apidoc', (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Error executing apidoc: ${error.message}`);
+      return;
+    }
+    if (stderr) {
+      console.error(`apidoc encountered an error: ${stderr}`);
+      return;
+    }
+    console.log('apidoc output');
+});
+
 const app = express();
 
 // Session全局中间件配置
 app.use(sessionAuth);
+
+// Serve static files (apidoc-generated documentation)
+app.use('/apidoc', express.static(path.join(__dirname, 'apidoc')));
 
 // 中间件处理post请求参数解析
 app.use(express.json());
@@ -46,11 +63,6 @@ app.all('*', function (req, res, next) {
     }
     else next();
 })
-
-// 使用swagger API文档，必须在解决跨域设置数据格式之前
-const options = require('@/config/swagger.config'); // 配置信息
-const expressSwagger = require('express-swagger-generator')(app);
-expressSwagger(options);
 
 // 根据环境打印对应信息
 if (isDev) {
@@ -99,7 +111,7 @@ app.listen(process.env.PORT, () => {
       );
       
     console.log(chalk.bold.green(`项目启动成功: ${process.env.URL}:${process.env.PORT}/v1`));
-    console.log(chalk.bold.green(`接口文档地址: ${process.env.URL}:${process.env.PORT}/swagger`));
+    console.log(chalk.bold.green(`接口文档地址: ${process.env.URL}:${process.env.PORT}/apidoc`));
 });
 
 module.exports = app;

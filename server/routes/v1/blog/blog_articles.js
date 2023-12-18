@@ -12,9 +12,9 @@
  /***************************************************************************************/
 
 /**
- * 获取博文管理列表
- * @route POST /v1/blog/blog_articles/list
- * @group 博文管理管理 - 博文管理相关
+ * @api {post} /v1/blog/blog_articles/list 获取博文管理列表
+ * @apiGroup 博文管理
+ * @apiDescription 博文管理相关的接口
  */
 router.post('/list', Blog_articlesController.blog_articleslist);
 
