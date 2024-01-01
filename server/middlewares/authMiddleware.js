@@ -69,7 +69,7 @@ const checkUserPermission = (allowedPermissions) => {
         // 从 req.users 中获取用户信息，假设用户信息中有一个字段 permissions 表示用户权限
         // const userPermissions = req.users.permissions;
         //
-        // // 检查用户是否具有允许的权限之一
+        // 检查用户是否具有允许的权限之一
         // const hasPermission = userPermissions.some(permission => allowedPermissions.includes(permission));
         // if (!hasPermission) {
         //     return apiResponse.forbiddenResponse(res, '无权限访问该接口.');

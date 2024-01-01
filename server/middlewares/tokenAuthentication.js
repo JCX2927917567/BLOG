@@ -14,8 +14,8 @@ function tokenAuthentication(req, res, next) {
     jwt({
         secret: process.env.SIGN_KEY,
         algorithms: ['HS256'],
-        requestProperty: 'user',
-        credentialsRequired: true,
+        requestProperty: 'user', // 不配置默认为req.auth
+        credentialsRequired: true, // 默认值(可选项)
         getToken: function fromHeaderOrQuerystring(req, res) {
             if (req.headers.authorization &&
                 req.headers.authorization.split(" ")[0] === "Bearer") {

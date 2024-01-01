@@ -27,7 +27,7 @@ const scheduler = new Scheduler();
 /*
 * 添加需要和主进程启动/停止同步的定时任务
 * */
-scheduler.add(UserTask)
+// scheduler.add(UserTask)
 scheduler.add(SendEmail)
 
 // 导出所有任务
