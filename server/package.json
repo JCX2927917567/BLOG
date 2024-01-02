@@ -38,6 +38,9 @@
     "multer": "1.4.5-lts.1",
     "mysql2": "^3.6.5",
     "node-schedule": "^2.1.1",
-    "nodemailer": "^6.9.7"
+    "nodemailer": "^6.9.7",
+    "request": "^2.88.2",
+    "svg-captcha": "^1.4.0",
+    "ua-parser-js": "^1.0.37"
   }
 }
